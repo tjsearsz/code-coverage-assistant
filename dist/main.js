@@ -6083,13 +6083,13 @@ const commentForMonorepo = (
                   "%",
               )
             : "";
-        let report = lcovObj.lcov;
+        /* let report = lcovObj.lcov;
 
-        if (baseLcov) {
-            const onlyInLcov = lcovObj.lcov.filter(comparer(baseLcov));
-            const onlyInBefore = baseLcov.filter(comparer(lcovObj.lcov));
+        /* if (baseLcov) {
+            const onlyInLcov = lcovObj.lcov.filter(comparer(baseLcov.lcov));
+            const onlyInBefore = baseLcov.lcov.filter(comparer(lcovObj.lcov));
             report = onlyInBefore.concat(onlyInLcov);
-        }
+        } */
 
         return `${table(
             tbody(
@@ -6099,10 +6099,7 @@ const commentForMonorepo = (
                     pdiffHtml,
                 ),
             ),
-        )} \n\n ${details(
-            summary("Coverage Report"),
-            tabulate(report, options),
-        )} <br/>`;
+        )} \n\n <br/>`;
     });
 
     const title = `Coverage after merging into ${b(base)} <p></p>`;
@@ -6302,7 +6299,7 @@ const getLcovBaseFiles = (dir, filelist) => {
         fileArray = fs__default.statSync(path.join(dir, file)).isDirectory()
             ? getLcovBaseFiles(path.join(dir, file), fileArray)
             : fileArray
-                  .filter(f => f.path.includes("lcov-base.info"))
+                  .filter(f => f.path.includes("lcov-base"))
                   .concat({
                       name: dir.split("/")[1],
                       path: path.join(dir, file),
