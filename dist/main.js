@@ -6082,7 +6082,8 @@ const commentForMonorepo = (
                   pdiff.toFixed(2),
                   "%",
               )
-            : "";
+            : // : "";
+              th(" N/A ");
         /* let report = lcovObj.lcov;
 
         /* if (baseLcov) {
@@ -6091,7 +6092,7 @@ const commentForMonorepo = (
             report = onlyInBefore.concat(onlyInLcov);
         } */
 
-        return `${table(
+        /* return `${table(
             tbody(
                 tr(
                     th(lcovObj.packageName),
@@ -6099,12 +6100,21 @@ const commentForMonorepo = (
                     pdiffHtml,
                 ),
             ),
-        )} \n\n <br/>`;
+        )} \n\n <br/>`; */
+
+        return tr(
+            th(lcovObj.packageName),
+            th(percentage(lcovObj.lcov).toFixed(2), "%"),
+            pdiffHtml,
+        );
     });
+
+    const html2 = table(tbody(html.join("")));
 
     const title = `Coverage after merging into ${b(base)} <p></p>`;
 
-    return fragment(title, html.join(""));
+    // return fragment(title, html.join(""));
+    return fragment(title, html2);
 };
 
 /**
