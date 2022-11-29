@@ -80,9 +80,18 @@ const main = async () => {
         console.log(`No coverage report found at '${baseFile}', ignoring...`);
     }
 
-    const lcovArray = monorepoBasePath ? getLcovFiles(monorepoBasePath) : [];
+    // const lcovArray = monorepoBasePath ? getLcovFiles(monorepoBasePath) : [];
+    const lcovArray = monorepoBasePath
+        ? monorepoBasePath
+              .split(" ")
+              .forEach(monorepoSinglePath => getLcovFiles(monorepoSinglePath))
+        : [];
     const lcovBaseArray = monorepoBasePath
-        ? getLcovBaseFiles(monorepoBasePath)
+        ? monorepoBasePath
+              .split(" ")
+              .forEach(monorepoSinglePath =>
+                  getLcovBaseFiles(monorepoSinglePath),
+              )
         : [];
 
     const lcovArrayForMonorepo = [];
